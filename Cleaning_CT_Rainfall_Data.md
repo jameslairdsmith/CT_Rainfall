@@ -1,10 +1,13 @@
 Cleaning Cape Town Rainfall Data
 ================================
 
-The following code is used to extract and clean rainfall data from Cape
-Town International Airport.
+The following code is used to extract, clean and analyse rainfall data
+from Cape Town International Airport.
 
 The data is available from: <ftp://ftp.ncdc.noaa.gov/pub/data/gsod/>
+
+The data is initially grouped by date and then by station number. Cape
+Town's station number is 688160.
 
 Loading the dependencies
 ------------------------
@@ -29,7 +32,7 @@ called 'Data' which is located in the working directory.
 This will make it simple to get everything into a dataframe (or tibble)
 quickly.
 
-Using the 'list.files' and 'as\_tibble' functions, I am able to get a
+Using the list.files() and as\_tibble() functions, I am able to get a
 dataframe with a single column of the file names.
 
     file_names<-list.files("Data/") %>% 
@@ -90,11 +93,11 @@ It is easier to work with file locations than with file names, I add a
 column to the dataframe with the suffix of the file location. In this
 case it is "Data/".
 
-From there, I use purrr's map function to invoke the 'read\_table'
+From there, I use purrr's map function to invoke the read\_table()
 function, which extracts each file as a tibble, which are then stored in
 a list column in the dataframe.
 
-The 'unnest' function can then be used to lump the tables together in
+The unnest() function can then be used to lump the tables together in
 the single dataframe.
 
 From that point we don't need the file\_name or file\_location fields.
@@ -494,14 +497,14 @@ to sum the rainfall on an annual basis and then work out the difference
 between any given year and the long term average.
 
 This is done by creating a 'Year' column using mutate() and then
-group\_by(). And then using the summary function to get the total
+group\_by(). And then using the summarise() function to get the total
 rainfall that fell every year.
 
-Because the Date variable is still useful, I use min() with summarise to
-simplify the Date column to the first day (January 1st) in that
+Because the Date variable is still useful, I use min() with summarise()
+to simplify the Date column to the first day (January 1st) in that
 particular year.
 
-From there is it possible to calulate the 10 year average precipitation
+From there is it possible to calculate the 10 year average precipitation
 using ungroup(), mutate() and mean(), and then caluclating each year's
 percentage difference from that mean.
 
@@ -632,8 +635,14 @@ percentage difference from that mean.
 </tbody>
 </table>
 
+This data is then written to a csv file.
+
+    write.csv(file = "CT_rainfall_summary_data.csv",summary_data)
+
 Plotting
 --------
+
+The summary data is then available for plotting.
 
     summary_data %>% 
       ggplot(aes(y=diff_mean_prcp_pct,x=Date)) +
@@ -645,4 +654,4 @@ Plotting
       labs(caption="\nSource: ncdc.noaa.gov") +
       theme(axis.title = element_blank()) 
 
-![](Cleaning_CT_Rainfall_Data_files/figure-markdown_strict/unnamed-chunk-6-1.png)
+![](Cleaning_CT_Rainfall_Data_files/figure-markdown_strict/unnamed-chunk-7-1.png)
