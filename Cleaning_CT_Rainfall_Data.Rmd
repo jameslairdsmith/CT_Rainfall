@@ -79,7 +79,9 @@ clean_data<-data %>%
   arrange(desc(PRCP)) %>% 
   arrange(desc(Date))
 
-clean_data
+clean_data %>% 
+  head(10) %>% 
+  kable()
 ```
 
 #Summarising the data
@@ -94,7 +96,9 @@ summary_data<-clean_data %>%
   mutate(diff_mean_prcp=PRCP-avr_prcp) %>% 
   mutate(diff_mean_prcp_pct=diff_mean_prcp/avr_prcp)
 
-summary_data
+summary_data %>% 
+  head(10) %>% 
+  kable()
 ```
 
 #Plotting

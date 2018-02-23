@@ -397,22 +397,82 @@ used as a zero value, so that is replaced as appropriate.
       arrange(desc(PRCP)) %>% 
       arrange(desc(Date))
 
-    clean_data
+    clean_data %>% 
+      head(10) %>% 
+      kable()
 
-    ## # A tibble: 4,014 x 4
-    ##    Station  TEMP  PRCP Date      
-    ##      <int> <dbl> <dbl> <date>    
-    ##  1  688160  66.8     0 2017-12-31
-    ##  2  688160  71.3     0 2017-12-30
-    ##  3  688160  71.8     0 2017-12-29
-    ##  4  688160  70.8     0 2017-12-28
-    ##  5  688160  66.9     0 2017-12-27
-    ##  6  688160  67.1     0 2017-12-26
-    ##  7  688160  64.4     0 2017-12-25
-    ##  8  688160  66.4     0 2017-12-24
-    ##  9  688160  67.4     0 2017-12-23
-    ## 10  688160  67.5     0 2017-12-22
-    ## # ... with 4,004 more rows
+<table>
+<thead>
+<tr class="header">
+<th align="right">Station</th>
+<th align="right">TEMP</th>
+<th align="right">PRCP</th>
+<th align="left">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">66.8</td>
+<td align="right">0</td>
+<td align="left">2017-12-31</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">71.3</td>
+<td align="right">0</td>
+<td align="left">2017-12-30</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">71.8</td>
+<td align="right">0</td>
+<td align="left">2017-12-29</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">70.8</td>
+<td align="right">0</td>
+<td align="left">2017-12-28</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">66.9</td>
+<td align="right">0</td>
+<td align="left">2017-12-27</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">67.1</td>
+<td align="right">0</td>
+<td align="left">2017-12-26</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">64.4</td>
+<td align="right">0</td>
+<td align="left">2017-12-25</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">66.4</td>
+<td align="right">0</td>
+<td align="left">2017-12-24</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">67.4</td>
+<td align="right">0</td>
+<td align="left">2017-12-23</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">67.5</td>
+<td align="right">0</td>
+<td align="left">2017-12-22</td>
+</tr>
+</tbody>
+</table>
 
 Summarising the data
 ====================
@@ -426,22 +486,115 @@ Summarising the data
       mutate(diff_mean_prcp=PRCP-avr_prcp) %>% 
       mutate(diff_mean_prcp_pct=diff_mean_prcp/avr_prcp)
 
-    summary_data
+    summary_data %>% 
+      head(10) %>% 
+      kable()
 
-    ## # A tibble: 11 x 7
-    ##     Year Station  PRCP Date       avr_prcp diff_mean_prcp diff_mean_prcp_~
-    ##    <dbl>   <int> <dbl> <date>        <dbl>          <dbl>            <dbl>
-    ##  1  2007  688160 24.9  2007-01-01     17.6           7.32            0.416
-    ##  2  2008  688160 21.6  2008-01-01     17.6           4.00            0.227
-    ##  3  2009  688160 22.6  2009-01-01     17.6           5.02            0.285
-    ##  4  2010  688160 14.2  2010-01-01     17.6         - 3.39           -0.192
-    ##  5  2011  688160 14.7  2011-01-01     17.6         - 2.92           -0.166
-    ##  6  2012  688160 15.6  2012-01-01     17.6         - 2.01           -0.114
-    ##  7  2013  688160 26.8  2013-01-01     17.6           9.17            0.521
-    ##  8  2014  688160 26.0  2014-01-01     17.6           8.38            0.476
-    ##  9  2015  688160 12.6  2015-01-01     17.6         - 4.98           -0.283
-    ## 10  2016  688160  8.64 2016-01-01     17.6         - 8.98           -0.510
-    ## 11  2017  688160  5.98 2017-01-02     17.6         -11.6            -0.661
+<table>
+<thead>
+<tr class="header">
+<th align="right">Year</th>
+<th align="right">Station</th>
+<th align="right">PRCP</th>
+<th align="left">Date</th>
+<th align="right">avr_prcp</th>
+<th align="right">diff_mean_prcp</th>
+<th align="right">diff_mean_prcp_pct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2007</td>
+<td align="right">688160</td>
+<td align="right">24.94</td>
+<td align="left">2007-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">7.322727</td>
+<td align="right">0.4156561</td>
+</tr>
+<tr class="even">
+<td align="right">2008</td>
+<td align="right">688160</td>
+<td align="right">21.62</td>
+<td align="left">2008-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">4.002727</td>
+<td align="right">0.2272047</td>
+</tr>
+<tr class="odd">
+<td align="right">2009</td>
+<td align="right">688160</td>
+<td align="right">22.64</td>
+<td align="left">2009-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">5.022727</td>
+<td align="right">0.2851024</td>
+</tr>
+<tr class="even">
+<td align="right">2010</td>
+<td align="right">688160</td>
+<td align="right">14.23</td>
+<td align="left">2010-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">-3.387273</td>
+<td align="right">-0.1922700</td>
+</tr>
+<tr class="odd">
+<td align="right">2011</td>
+<td align="right">688160</td>
+<td align="right">14.70</td>
+<td align="left">2011-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">-2.917273</td>
+<td align="right">-0.1655916</td>
+</tr>
+<tr class="even">
+<td align="right">2012</td>
+<td align="right">688160</td>
+<td align="right">15.61</td>
+<td align="left">2012-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">-2.007273</td>
+<td align="right">-0.1139378</td>
+</tr>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">688160</td>
+<td align="right">26.79</td>
+<td align="left">2013-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">9.172727</td>
+<td align="right">0.5206667</td>
+</tr>
+<tr class="even">
+<td align="right">2014</td>
+<td align="right">688160</td>
+<td align="right">26.00</td>
+<td align="left">2014-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">8.382727</td>
+<td align="right">0.4758243</td>
+</tr>
+<tr class="odd">
+<td align="right">2015</td>
+<td align="right">688160</td>
+<td align="right">12.64</td>
+<td align="left">2015-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">-4.977273</td>
+<td align="right">-0.2825223</td>
+</tr>
+<tr class="even">
+<td align="right">2016</td>
+<td align="right">688160</td>
+<td align="right">8.64</td>
+<td align="left">2016-01-01</td>
+<td align="right">17.61727</td>
+<td align="right">-8.977273</td>
+<td align="right">-0.5095722</td>
+</tr>
+</tbody>
+</table>
 
 Plotting
 ========
