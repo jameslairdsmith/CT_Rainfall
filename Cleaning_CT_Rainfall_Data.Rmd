@@ -1,5 +1,5 @@
 ---
-title: "Cleaning Cape Town Rainfall Data"
+title: "Cape Town Rainfall Data Analysis"
 output: md_document
 ---
 
