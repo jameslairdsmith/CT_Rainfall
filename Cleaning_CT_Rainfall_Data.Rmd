@@ -3,7 +3,7 @@ title: "Cape Town Rainfall Data Analysis"
 output: md_document
 ---
 
-#Cleaning Cape Town Rainfall Data
+#Cape Town Rainfall Data Analysis
 
 The following code is used to extract, clean and analyse rainfall data from Cape Town International Airport.
 

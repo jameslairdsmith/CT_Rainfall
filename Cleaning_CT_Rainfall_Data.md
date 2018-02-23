@@ -1,4 +1,4 @@
-Cleaning Cape Town Rainfall Data
+Cape Town Rainfall Data Analysis
 ================================
 
 The following code is used to extract, clean and analyse rainfall data
