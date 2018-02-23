@@ -26,7 +26,7 @@ I use knitr::kable for the rendering of the markdown tables. This makes it easie
 
 ##Loading the data
 
-Before begining, it is helpful to start with the uncompressed data files in a single file location. In my case I have placed them in a folder called 'Data' which is located in the working directory.
+Before beginning, it is helpful to start with the uncompressed data files in a single file location. In my case I have placed them in a folder called 'Data' which is located in the working directory.
 
 This will make it simple to get everything into a dataframe (or tibble) quickly.
 
@@ -71,7 +71,7 @@ Only a few of the columns are needed for the analysis.
 
 A number of the columns are renamed to something more meaningful.
 
-From there, the precipitation needs to be parsed from the data stroage format. That means removing the type of precipitation to make the value numeric. This is done by removing the letters A through to I. 99.99 is used as a zero value, so that is replaced as appropriate.
+From there, the precipitation needs to be parsed from the data storage format. That means removing the type of precipitation to make the value numeric. This is done by removing the letters A through to I. 99.99 is used as a zero value, so that is replaced as appropriate.
 
 ```{r}
 clean_data<-data %>% 
@@ -99,7 +99,7 @@ This is done by creating a 'Year' column using mutate() and then group_by(). And
 
 Because the Date variable is still useful, I use min() with summarise() to simplify the Date column to the first day (January 1st) in that particular year.
 
-From there is it possible to calculate the 10 year average precipitation using ungroup(), mutate() and mean(), and then caluclating each year's percentage difference from that mean.
+From there is it possible to calculate the 10 year average precipitation using ungroup(), mutate() and mean(), and then calculating each year's percentage difference from that mean.
 
 ```{r}
 summary_data<-clean_data %>% 
