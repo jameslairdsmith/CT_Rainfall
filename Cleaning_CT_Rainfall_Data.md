@@ -33,22 +33,51 @@ dataframe with a single column of the file names.
       as_tibble() %>% 
       rename(file_name="value") 
 
-    file_names
+    file_names %>% 
+      kable()
 
-    ## # A tibble: 11 x 1
-    ##    file_name           
-    ##    <chr>               
-    ##  1 688160-99999-2007.op
-    ##  2 688160-99999-2008.op
-    ##  3 688160-99999-2009.op
-    ##  4 688160-99999-2010.op
-    ##  5 688160-99999-2011.op
-    ##  6 688160-99999-2012.op
-    ##  7 688160-99999-2013.op
-    ##  8 688160-99999-2014.op
-    ##  9 688160-99999-2015.op
-    ## 10 688160-99999-2016.op
-    ## 11 688160-99999-2017.op
+<table>
+<thead>
+<tr class="header">
+<th align="left">file_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">688160-99999-2007.op</td>
+</tr>
+<tr class="even">
+<td align="left">688160-99999-2008.op</td>
+</tr>
+<tr class="odd">
+<td align="left">688160-99999-2009.op</td>
+</tr>
+<tr class="even">
+<td align="left">688160-99999-2010.op</td>
+</tr>
+<tr class="odd">
+<td align="left">688160-99999-2011.op</td>
+</tr>
+<tr class="even">
+<td align="left">688160-99999-2012.op</td>
+</tr>
+<tr class="odd">
+<td align="left">688160-99999-2013.op</td>
+</tr>
+<tr class="even">
+<td align="left">688160-99999-2014.op</td>
+</tr>
+<tr class="odd">
+<td align="left">688160-99999-2015.op</td>
+</tr>
+<tr class="even">
+<td align="left">688160-99999-2016.op</td>
+</tr>
+<tr class="odd">
+<td align="left">688160-99999-2017.op</td>
+</tr>
+</tbody>
+</table>
 
 It is easier to work with file locations than with file names, I add a
 column to the dataframe with the suffix of the file location. In this
@@ -69,24 +98,280 @@ From that point we don't need the file\_name or file\_location fields.
       unnest(data_table) %>% 
       select(-file_name,-file_location)
 
-    data
+    data %>% 
+      head(10) %>% 
+      kable()
 
-    ## # A tibble: 4,014 x 22
-    ##    `STN---`  WBAN YEARMODA  TEMP    X5  DEWP    X7   SLP    X9   STP   X11
-    ##       <int> <int>    <int> <dbl> <int> <dbl> <int> <dbl> <int> <dbl> <int>
-    ##  1   688160 99999 20070101  66.8    24  47.5    24  1020     7  1015     7
-    ##  2   688160 99999 20070102  71.6    24  56.8    24  1016     8  1011     8
-    ##  3   688160 99999 20070103  70.4    23  61.8    23  1016     8  1011     8
-    ##  4   688160 99999 20070104  71.7    24  61.6    24  1015     8  1010     8
-    ##  5   688160 99999 20070105  69.2    24  58.8    24  1014     8  1009     8
-    ##  6   688160 99999 20070106  65.8    24  55.7    24  1017     7  1012     7
-    ##  7   688160 99999 20070107  64.9    24  46.8    24  1022     8  1017     8
-    ##  8   688160 99999 20070108  68.4    24  56.9    24  1020     8  1014     8
-    ##  9   688160 99999 20070109  69.3    24  60.9    24  1016     8  1011     8
-    ## 10   688160 99999 20070110  74.6    24  63.3    24  1011     7  1006     7
-    ## # ... with 4,004 more rows, and 11 more variables: VISIB <dbl>, X13 <int>,
-    ## #   WDSP <dbl>, X15 <int>, MXSPD <dbl>, GUST <dbl>, MAX <chr>, MIN <chr>,
-    ## #   PRCP <chr>, SNDP <dbl>, FRSHTT <chr>
+<table>
+<thead>
+<tr class="header">
+<th align="right">STN---</th>
+<th align="right">WBAN</th>
+<th align="right">YEARMODA</th>
+<th align="right">TEMP</th>
+<th align="right">X5</th>
+<th align="right">DEWP</th>
+<th align="right">X7</th>
+<th align="right">SLP</th>
+<th align="right">X9</th>
+<th align="right">STP</th>
+<th align="right">X11</th>
+<th align="right">VISIB</th>
+<th align="right">X13</th>
+<th align="right">WDSP</th>
+<th align="right">X15</th>
+<th align="right">MXSPD</th>
+<th align="right">GUST</th>
+<th align="left">MAX</th>
+<th align="left">MIN</th>
+<th align="left">PRCP</th>
+<th align="right">SNDP</th>
+<th align="left">FRSHTT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070101</td>
+<td align="right">66.8</td>
+<td align="right">24</td>
+<td align="right">47.5</td>
+<td align="right">24</td>
+<td align="right">1020.4</td>
+<td align="right">7</td>
+<td align="right">1015.4</td>
+<td align="right">7</td>
+<td align="right">11.7</td>
+<td align="right">24</td>
+<td align="right">8.9</td>
+<td align="right">24</td>
+<td align="right">14.0</td>
+<td align="right">999.9</td>
+<td align="left">79.5</td>
+<td align="left">49.6</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070102</td>
+<td align="right">71.6</td>
+<td align="right">24</td>
+<td align="right">56.8</td>
+<td align="right">24</td>
+<td align="right">1015.8</td>
+<td align="right">8</td>
+<td align="right">1010.8</td>
+<td align="right">8</td>
+<td align="right">11.3</td>
+<td align="right">24</td>
+<td align="right">11.5</td>
+<td align="right">24</td>
+<td align="right">16.9</td>
+<td align="right">999.9</td>
+<td align="left">84.6</td>
+<td align="left">55.8</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070103</td>
+<td align="right">70.4</td>
+<td align="right">23</td>
+<td align="right">61.8</td>
+<td align="right">23</td>
+<td align="right">1016.3</td>
+<td align="right">8</td>
+<td align="right">1011.4</td>
+<td align="right">8</td>
+<td align="right">9.9</td>
+<td align="right">23</td>
+<td align="right">16.3</td>
+<td align="right">23</td>
+<td align="right">22.9</td>
+<td align="right">999.9</td>
+<td align="left">84.6</td>
+<td align="left">64.6</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070104</td>
+<td align="right">71.7</td>
+<td align="right">24</td>
+<td align="right">61.6</td>
+<td align="right">24</td>
+<td align="right">1014.9</td>
+<td align="right">8</td>
+<td align="right">1010.0</td>
+<td align="right">8</td>
+<td align="right">12.8</td>
+<td align="right">24</td>
+<td align="right">11.2</td>
+<td align="right">24</td>
+<td align="right">18.1</td>
+<td align="right">999.9</td>
+<td align="left">82.0</td>
+<td align="left">64.4*</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070105</td>
+<td align="right">69.2</td>
+<td align="right">24</td>
+<td align="right">58.8</td>
+<td align="right">24</td>
+<td align="right">1013.9</td>
+<td align="right">8</td>
+<td align="right">1009.0</td>
+<td align="right">8</td>
+<td align="right">10.6</td>
+<td align="right">24</td>
+<td align="right">9.6</td>
+<td align="right">24</td>
+<td align="right">13.0</td>
+<td align="right">999.9</td>
+<td align="left">82.0</td>
+<td align="left">62.6*</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070106</td>
+<td align="right">65.8</td>
+<td align="right">24</td>
+<td align="right">55.7</td>
+<td align="right">24</td>
+<td align="right">1017.0</td>
+<td align="right">7</td>
+<td align="right">1012.0</td>
+<td align="right">7</td>
+<td align="right">10.7</td>
+<td align="right">24</td>
+<td align="right">9.6</td>
+<td align="right">24</td>
+<td align="right">15.9</td>
+<td align="right">999.9</td>
+<td align="left">77.5</td>
+<td align="left">56.5</td>
+<td align="left">0.00E</td>
+<td align="right">999.9</td>
+<td align="left">010000</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070107</td>
+<td align="right">64.9</td>
+<td align="right">24</td>
+<td align="right">46.8</td>
+<td align="right">24</td>
+<td align="right">1021.9</td>
+<td align="right">8</td>
+<td align="right">1016.9</td>
+<td align="right">8</td>
+<td align="right">12.2</td>
+<td align="right">24</td>
+<td align="right">12.8</td>
+<td align="right">24</td>
+<td align="right">19.0</td>
+<td align="right">999.9</td>
+<td align="left">75.2</td>
+<td align="left">60.6</td>
+<td align="left">0.00G</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070108</td>
+<td align="right">68.4</td>
+<td align="right">24</td>
+<td align="right">56.9</td>
+<td align="right">24</td>
+<td align="right">1019.5</td>
+<td align="right">8</td>
+<td align="right">1014.5</td>
+<td align="right">8</td>
+<td align="right">12.6</td>
+<td align="right">24</td>
+<td align="right">9.6</td>
+<td align="right">24</td>
+<td align="right">15.0</td>
+<td align="right">999.9</td>
+<td align="left">77.0</td>
+<td align="left">60.3</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="odd">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070109</td>
+<td align="right">69.3</td>
+<td align="right">24</td>
+<td align="right">60.9</td>
+<td align="right">24</td>
+<td align="right">1015.7</td>
+<td align="right">8</td>
+<td align="right">1010.8</td>
+<td align="right">8</td>
+<td align="right">12.0</td>
+<td align="right">24</td>
+<td align="right">17.7</td>
+<td align="right">24</td>
+<td align="right">22.9</td>
+<td align="right">34.0</td>
+<td align="left">77.2</td>
+<td align="left">64.4*</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+<tr class="even">
+<td align="right">688160</td>
+<td align="right">99999</td>
+<td align="right">20070110</td>
+<td align="right">74.6</td>
+<td align="right">24</td>
+<td align="right">63.3</td>
+<td align="right">24</td>
+<td align="right">1010.6</td>
+<td align="right">7</td>
+<td align="right">1005.7</td>
+<td align="right">7</td>
+<td align="right">11.0</td>
+<td align="right">24</td>
+<td align="right">12.3</td>
+<td align="right">24</td>
+<td align="right">15.9</td>
+<td align="right">999.9</td>
+<td align="left">88.3</td>
+<td align="left">66.2</td>
+<td align="left">0.00I</td>
+<td align="right">999.9</td>
+<td align="left">000000</td>
+</tr>
+</tbody>
+</table>
 
 Cleaning the data
 =================

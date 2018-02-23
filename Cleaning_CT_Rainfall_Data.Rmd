@@ -34,7 +34,8 @@ file_names<-list.files("Data/") %>%
   as_tibble() %>% 
   rename(file_name="value") 
 
-file_names
+file_names %>% 
+  kable()
 ```
 
 It is easier to work with file locations than with file names, I add a column to the dataframe with the suffix of the file location. In this case it is "Data/".
@@ -52,7 +53,9 @@ data<-file_names %>%
   unnest(data_table) %>% 
   select(-file_name,-file_location)
 
-data
+data %>% 
+  head(10) %>% 
+  kable()
 ```
 
 #Cleaning the data
