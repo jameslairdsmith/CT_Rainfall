@@ -1,10 +1,13 @@
+Cleaning Cape Town Rainfall Data
+================================
+
 The following code is used to extract and clean rainfall data from Cape
 Town International Airport.
 
 The data is available from:
 
 Loading the dependencies
-========================
+------------------------
 
     library(readr)
     library(tidyverse)
@@ -17,7 +20,7 @@ I use knitr::kable for the rendering of the markdown tables. This makes
 it easier to read in many formats, notably Github.
 
 Loading the data
-================
+----------------
 
 Before begining, it is helpful to start with the uncompressed data files
 in a single file location. In my case I have placed them in a folder
@@ -374,7 +377,7 @@ From that point we don't need the file\_name or file\_location fields.
 </table>
 
 Cleaning the data
-=================
+-----------------
 
 A number of things need to be done in order to clean the data.
 
@@ -475,7 +478,7 @@ used as a zero value, so that is replaced as appropriate.
 </table>
 
 Summarising the data
-====================
+--------------------
 
     summary_data<-clean_data %>% 
       mutate(Year=year(Date),Month=quarter(Date)) %>% 
@@ -597,7 +600,7 @@ Summarising the data
 </table>
 
 Plotting
-========
+--------
 
     summary_data %>% 
       ggplot(aes(y=diff_mean_prcp_pct,x=Date)) +

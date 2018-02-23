@@ -3,12 +3,14 @@ title: "Cleaning Cape Town Rainfall Data"
 output: md_document
 ---
 
+#Cleaning Cape Town Rainfall Data
+
 The following code is used to extract and clean rainfall data from Cape Town International Airport.
 
 The data is available from:
 
 
-#Loading the dependencies
+##Loading the dependencies
 
 ```{r message=FALSE, warning=FALSE}
 library(readr)
@@ -21,7 +23,7 @@ library(knitr)
 
 I use knitr::kable for the rendering of the markdown tables. This makes it easier to read in many formats, notably Github.
 
-#Loading the data
+##Loading the data
 
 Before begining, it is helpful to start with the uncompressed data files in a single file location. In my case I have placed them in a folder called 'Data' which is located in the working directory.
 
@@ -58,7 +60,7 @@ data %>%
   kable()
 ```
 
-#Cleaning the data
+##Cleaning the data
 
 A number of things need to be done in order to clean the data.
 
@@ -84,7 +86,7 @@ clean_data %>%
   kable()
 ```
 
-#Summarising the data
+##Summarising the data
 
 ```{r}
 summary_data<-clean_data %>% 
@@ -101,7 +103,7 @@ summary_data %>%
   kable()
 ```
 
-#Plotting
+##Plotting
 
 ```{r}
 summary_data %>% 
