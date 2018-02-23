@@ -4,7 +4,7 @@ Cleaning Cape Town Rainfall Data
 The following code is used to extract and clean rainfall data from Cape
 Town International Airport.
 
-The data is available from:
+The data is available from: <ftp://ftp.ncdc.noaa.gov/pub/data/gsod/>
 
 Loading the dependencies
 ------------------------
@@ -81,6 +81,10 @@ dataframe with a single column of the file names.
 </tr>
 </tbody>
 </table>
+
+As you will be able to see, I have only downloaded the last 10 full
+years of data. The procedure is exactly the same if you choose a greater
+or fewer number of years.
 
 It is easier to work with file locations than with file names, I add a
 column to the dataframe with the suffix of the file location. In this
@@ -480,8 +484,29 @@ used as a zero value, so that is replaced as appropriate.
 Summarising the data
 --------------------
 
+The daily precipitation on its own is not that useful. There are two
+main reasons for this. First is that it does not rain everyday in Cape
+Town and second is that rainfall is seasonal, so doesn't occur evenly
+over many periods.
+
+The best way to visualise the data I have been able to come up with is
+to sum the rainfall on an annual basis and then work out the difference
+between any given year and the long term average.
+
+This is done by creating a 'Year' column using mutate() and then
+group\_by(). And then using the summary function to get the total
+rainfall that fell every year.
+
+Because the Date variable is still useful, I use min() with summarise to
+simplify the Date column to the first day (January 1st) in that
+particular year.
+
+From there is it possible to calulate the 10 year average precipitation
+using ungroup(), mutate() and mean(), and then caluclating each year's
+percentage difference from that mean.
+
     summary_data<-clean_data %>% 
-      mutate(Year=year(Date),Month=quarter(Date)) %>% 
+      mutate(Year=year(Date)) %>% 
       group_by(Year,Station) %>% 
       summarise(PRCP=sum(PRCP),Date=min(Date)) %>% 
       ungroup() %>%
@@ -490,7 +515,6 @@ Summarising the data
       mutate(diff_mean_prcp_pct=diff_mean_prcp/avr_prcp)
 
     summary_data %>% 
-      head(10) %>% 
       kable()
 
 <table>
@@ -595,6 +619,15 @@ Summarising the data
 <td align="right">17.61727</td>
 <td align="right">-8.977273</td>
 <td align="right">-0.5095722</td>
+</tr>
+<tr class="odd">
+<td align="right">2017</td>
+<td align="right">688160</td>
+<td align="right">5.98</td>
+<td align="left">2017-01-02</td>
+<td align="right">17.61727</td>
+<td align="right">-11.637273</td>
+<td align="right">-0.6605604</td>
 </tr>
 </tbody>
 </table>
