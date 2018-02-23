@@ -1,0 +1,110 @@
+---
+title: "Cleaning Cape Town Rainfall Data"
+output: md_document
+---
+
+The following code is used to extract and clean rainfall data from Cape Town International Airport.
+
+The data is available from:
+
+
+#Loading the dependencies
+
+```{r message=FALSE, warning=FALSE}
+library(readr)
+library(tidyverse)
+library(lubridate)
+library(stringr)
+library(forcats)
+library(knitr)
+```
+
+I use knitr::kable for the rendering of the markdown tables. This makes it easier to read in many formats, notably Github.
+
+#Loading the data
+
+Before begining, it is helpful to start with the uncompressed data files in a single file location. In my case I have placed them in a folder called 'Data' which is located in the working directory.
+
+This will make it simple to get everything into a dataframe (or tibble) quickly.
+
+Using the 'list.files' and 'as_tibble' functions, I am able to get a dataframe with a single column of the file names.
+
+```{r message=FALSE, warning=FALSE}
+file_names<-list.files("Data/") %>% 
+  as_tibble() %>% 
+  rename(file_name="value") 
+
+file_names
+```
+
+It is easier to work with file locations than with file names, I add a column to the dataframe with the suffix of the file location. In this case it is "Data/".
+
+From there, I use purrr's map function to invoke the 'read_table' function, which extracts each file as a tibble, which are then stored in a list column in the dataframe.
+
+The 'unnest' function can then be used to lump the tables together in the single dataframe.
+
+From that point we don't need the file_name or file_location fields.
+
+```{r message=FALSE, warning=FALSE}
+data<-file_names %>% 
+  mutate(file_location=str_c("Data/",file_name,sep="")) %>% 
+  mutate(data_table=map(file_location,read_table)) %>% 
+  unnest(data_table) %>% 
+  select(-file_name,-file_location)
+
+data
+```
+
+#Cleaning the data
+
+A number of things need to be done in order to clean the data.
+
+Only a few of the columns are needed for the analysis.
+
+A number of the columns are renamed to something more meaningful.
+
+From there, the precipitation needs to be parsed from the data stroage format. That means removing the type of precipitation to make the value numeric. This is done by removing the letters A through to I. 99.99 is used as a zero value, so that is replaced as appropriate.
+
+```{r}
+clean_data<-data %>% 
+  select(`STN---`,YEARMODA,TEMP,PRCP) %>% 
+  rename(Station=`STN---`) %>% 
+  mutate(Date=ymd(YEARMODA)) %>% 
+  select(-YEARMODA) %>% 
+  mutate(PRCP=str_replace(PRCP,"[ABCDEFGHI]","")) %>% 
+  mutate(PRCP=as.numeric(str_replace(PRCP,"99.99","0"))) %>% 
+  arrange(desc(PRCP)) %>% 
+  arrange(desc(Date))
+
+clean_data
+```
+
+#Summarising the data
+
+```{r}
+summary_data<-clean_data %>% 
+  mutate(Year=year(Date),Month=quarter(Date)) %>% 
+  group_by(Year,Station) %>% 
+  summarise(PRCP=sum(PRCP),Date=min(Date)) %>% 
+  ungroup() %>%
+  mutate(avr_prcp=mean(PRCP)) %>% 
+  mutate(diff_mean_prcp=PRCP-avr_prcp) %>% 
+  mutate(diff_mean_prcp_pct=diff_mean_prcp/avr_prcp)
+
+summary_data
+```
+
+#Plotting
+
+```{r}
+summary_data %>% 
+  ggplot(aes(y=diff_mean_prcp_pct,x=Date)) +
+  geom_col() +
+  scale_x_date(date_breaks = "1 year",date_labels = "%Y") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title="Rained out") +
+  labs(subtitle="Rainfall at Cape Town International Airport, percentage difference from ten year average") +
+  labs(caption="\nSource: ncdc.noaa.gov") +
+  theme(axis.title = element_blank()) 
+```
+
